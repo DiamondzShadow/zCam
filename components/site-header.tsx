@@ -15,6 +15,7 @@ const navigation = [
   { name: "Character Progression", href: "/character-progression" },
   { name: "Territory Management", href: "/territory-management" },
   { name: "Year 3030", href: "/future" },
+  { name: "Rainbow Static", href: "/rainbow-static" },
 ]
 
 export default function SiteHeader() {
