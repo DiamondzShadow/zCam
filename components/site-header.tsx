@@ -31,7 +31,7 @@ export default function SiteHeader() {
         </div>
 
         {/* Desktop navigation */}
-        <nav className="hidden md:flex gap-6">
+        <nav className="hidden md:flex flex-wrap gap-6">
           {navigation.map((item) => (
             <Link key={item.name} href={item.href} className="text-zinc-400 hover:text-white transition">
               {item.name}
