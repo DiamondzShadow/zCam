@@ -5,17 +5,30 @@ import { useState } from "react"
 import { Shield, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const navigation = [
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu"
+
+const mainNavigation = [
   { name: "Home", href: "/" },
   { name: "Characters", href: "/characters" },
-  { name: "Missions", href: "/missions" },
   { name: "Storyline", href: "/storyline" },
   { name: "LIONSMANE", href: "/lionsmane" },
   { name: "Simulator", href: "/simulator" },
-  { name: "Character Progression", href: "/character-progression" },
-  { name: "Territory Management", href: "/territory-management" },
-  { name: "Year 3030", href: "/future" },
-  { name: "Rainbow Static", href: "/rainbow-static" },
+]
+
+const gameplayNavigation = [
+  { name: "Missions", href: "/missions", description: "Core mission progression" },
+  { name: "Extended Missions", href: "/expanded-missions", description: "Additional mission content" },
+  { name: "Character Progression", href: "/character-progression", description: "Level up your character" },
+  { name: "Territory Management", href: "/territory-management", description: "Manage your territories" },
+  { name: "Year 3030", href: "/future", description: "Future timeline content" },
+  { name: "Rainbow Static", href: "/rainbow-static", description: "Glitch-core visualizer" },
 ]
 
 export default function SiteHeader() {
@@ -32,18 +45,43 @@ export default function SiteHeader() {
         </div>
 
         {/* Desktop navigation */}
-        <nav className="hidden md:flex flex-wrap gap-x-6 gap-y-2">
-          {navigation.map((item) => (
-            <Link key={item.name} href={item.href} className="text-zinc-400 hover:text-white transition">
-              {item.name}
-            </Link>
-          ))}
-        </nav>
+        <div className="hidden md:flex items-center gap-4">
+          <NavigationMenu>
+            <NavigationMenuList className="gap-2">
+              {mainNavigation.map((item) => (
+                <NavigationMenuItem key={item.name}>
+                  <Link href={item.href} legacyBehavior passHref>
+                    <NavigationMenuLink className="text-zinc-400 hover:text-white transition px-3 py-2 rounded-md text-sm">
+                      {item.name}
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              ))}
 
-        <div className="hidden md:block">
-          <Link href="/expanded-missions">
-            <Button className="bg-red-600 hover:bg-red-700">Extended Missions</Button>
-          </Link>
+              {/* Gameplay dropdown */}
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="text-zinc-400 hover:text-white bg-transparent text-sm">
+                  Gameplay
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="grid gap-3 p-6 w-80 bg-black border border-zinc-800">
+                    {gameplayNavigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-800 hover:text-white focus:bg-zinc-800 focus:text-white"
+                      >
+                        <div className="text-sm font-medium leading-none text-white">{item.name}</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-zinc-400">
+                          {item.description}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
 
         {/* Mobile menu button */}
@@ -56,7 +94,7 @@ export default function SiteHeader() {
       {mobileMenuOpen && (
         <div className="md:hidden py-4 px-6 border-t border-zinc-800 bg-black">
           <nav className="flex flex-col gap-4">
-            {navigation.map((item) => (
+            {mainNavigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
@@ -66,9 +104,20 @@ export default function SiteHeader() {
                 {item.name}
               </Link>
             ))}
-            <Link href="/expanded-missions" onClick={() => setMobileMenuOpen(false)}>
-              <Button className="w-full bg-red-600 hover:bg-red-700 mt-2">Extended Missions</Button>
-            </Link>
+
+            <div className="mt-2 pt-2 border-t border-zinc-800">
+              <p className="text-xs text-zinc-500 mb-2 font-semibold">GAMEPLAY</p>
+              {gameplayNavigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block text-zinc-400 hover:text-white transition py-2 pl-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </nav>
         </div>
       )}
