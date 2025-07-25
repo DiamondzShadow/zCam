@@ -17,20 +17,20 @@ export default function ExpandedMissions() {
       </div>
 
       <Tabs defaultValue="global" className="mb-12">
-        <TabsList className="grid grid-cols-5 mb-8">
-          <TabsTrigger value="global" className="data-[state=active]:bg-red-600">
+        <TabsList className="grid w-full grid-cols-5 mb-8 bg-zinc-900 border border-zinc-800">
+          <TabsTrigger value="global" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
             Global
           </TabsTrigger>
-          <TabsTrigger value="asia" className="data-[state=active]:bg-red-600">
+          <TabsTrigger value="asia" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
             Asia
           </TabsTrigger>
-          <TabsTrigger value="americas" className="data-[state=active]:bg-red-600">
+          <TabsTrigger value="americas" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
             Americas
           </TabsTrigger>
-          <TabsTrigger value="europe" className="data-[state=active]:bg-red-600">
+          <TabsTrigger value="europe" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
             Europe
           </TabsTrigger>
-          <TabsTrigger value="digital" className="data-[state=active]:bg-red-600">
+          <TabsTrigger value="digital" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
             Digital Realm
           </TabsTrigger>
         </TabsList>
