@@ -4,83 +4,106 @@ import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, X } from "lucide-react"
+import { Menu, Zap } from "lucide-react"
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false)
 
   const navigation = [
     { name: "Home", href: "/" },
+    { name: "Story", href: "/storyline" },
     { name: "Characters", href: "/characters" },
     { name: "Missions", href: "/missions" },
     { name: "LIONSMANE", href: "/lionsmane" },
     { name: "Simulator", href: "/simulator" },
-    { name: "Territory", href: "/territory-management" },
-    { name: "GDD", href: "/gdd" },
-    { name: "Whitepaper", href: "/whitepaper" },
+    { name: "Docs", href: "/gdd" },
   ]
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/60">
-      <div className="container flex h-16 items-center">
-        <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold text-xl text-white sm:inline-block">SCAM Mercenaires</span>
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="relative">
+              <Zap className="h-8 w-8 text-cyan-400" />
+              <div className="absolute inset-0 h-8 w-8 text-cyan-400 animate-pulse opacity-50">
+                <Zap className="h-8 w-8" />
+              </div>
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Scam Mercenaires
+            </span>
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-1">
             {navigation.map((item) => (
-              <Link key={item.name} href={item.href} className="transition-colors hover:text-purple-400 text-slate-300">
+              <Link
+                key={item.name}
+                href={item.href}
+                className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-cyan-400 hover:bg-slate-800 rounded-md transition-colors"
+              >
                 {item.name}
               </Link>
             ))}
           </nav>
-        </div>
 
-        {/* Mobile Navigation */}
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
-            >
-              <Menu className="h-6 w-6 text-white" />
-              <span className="sr-only">Toggle Menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="pr-0 bg-slate-900 border-slate-800">
-            <div className="flex items-center justify-between mb-6">
-              <Link href="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
-                <span className="font-bold text-xl text-white">SCAM Mercenaires</span>
-              </Link>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-slate-800"
-              >
-                <X className="h-4 w-4" />
+          {/* Mobile Navigation */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button variant="ghost" size="sm">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle menu</span>
               </Button>
-            </div>
-            <nav className="flex flex-col space-y-3">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className="transition-colors hover:text-purple-400 text-slate-300 text-lg py-2"
-                >
-                  {item.name}
+            </SheetTrigger>
+            <SheetContent side="right" className="w-80 bg-slate-900 border-slate-800">
+              <div className="flex items-center justify-between mb-6">
+                <Link href="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
+                  <Zap className="h-6 w-6 text-cyan-400" />
+                  <span className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                    Scam Mercenaires
+                  </span>
                 </Link>
-              ))}
-            </nav>
-          </SheetContent>
-        </Sheet>
+              </div>
 
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            <Link href="/" className="md:hidden">
-              <span className="font-bold text-xl text-white">SCAM Mercenaires</span>
-            </Link>
+              <nav className="flex flex-col space-y-2">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-cyan-400 hover:bg-slate-800 rounded-md transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="mt-8 pt-6 border-t border-slate-800">
+                <div className="space-y-2">
+                  <Button className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600">
+                    Play Now
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full border-slate-700 text-gray-300 hover:bg-slate-800 bg-transparent"
+                  >
+                    Join Community
+                  </Button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+
+          {/* Desktop CTA Buttons */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <Button variant="outline" className="border-slate-700 text-gray-300 hover:bg-slate-800 bg-transparent">
+              Join Community
+            </Button>
+            <Button className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600">
+              Play Now
+            </Button>
           </div>
         </div>
       </div>

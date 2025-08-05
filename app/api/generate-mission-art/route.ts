@@ -1,32 +1,48 @@
 import { type NextRequest, NextResponse } from "next/server"
 
-// Fallback image URLs for when the API fails
-const FALLBACK_IMAGES = [
-  "/neon-cityscape.png",
-  "/neon-grid-breach.png",
-  "/neon-grid.png",
-  "/neon-city-dreams.png",
-  "/neural-connection.png",
-]
-
 export async function POST(request: NextRequest) {
   try {
-    // Return a random fallback image instead of trying to use the XAI API
-    // This ensures the mission simulator will always have visuals
-    const randomIndex = Math.floor(Math.random() * FALLBACK_IMAGES.length)
-    const fallbackImageUrl = FALLBACK_IMAGES[randomIndex]
+    const { missionType, location, difficulty } = await request.json()
+
+    // Simulate art generation time
+    await new Promise((resolve) => setTimeout(resolve, 2500))
+
+    // Mock art generation with predefined images
+    const artVariations = [
+      "/infiltration-mission.png",
+      "/territory-mission.png",
+      "/adaptive-mission.png",
+      "/narrative-mission.png",
+      "/mission-structure.png",
+      "/mission1-showcase.png",
+    ]
+
+    const selectedArt = artVariations[Math.floor(Math.random() * artVariations.length)]
+
+    const artData = {
+      id: `ART-${Date.now()}`,
+      missionType,
+      location,
+      difficulty,
+      imageUrl: selectedArt,
+      style: "Cyberpunk Noir",
+      resolution: "1024x1024",
+      generatedAt: new Date().toISOString(),
+      prompt: `A ${difficulty.toLowerCase()} ${missionType.toLowerCase()} mission in ${location} with cyberpunk aesthetics`,
+      metadata: {
+        colors: ["#00ffff", "#ff00ff", "#ffff00"],
+        mood: difficulty === "Hard" ? "Intense" : difficulty === "Medium" ? "Focused" : "Mysterious",
+        elements: ["neon lights", "urban landscape", "high-tech equipment"],
+      },
+    }
 
     return NextResponse.json({
-      imageUrl: fallbackImageUrl,
-      isStaticImage: true,
+      success: true,
+      art: artData,
+      message: "Mission art generated successfully",
     })
   } catch (error) {
     console.error("Error generating mission art:", error)
-    // Even if there's an error in our fallback logic, return a default image
-    return NextResponse.json({
-      imageUrl: "/neon-grid.png",
-      isStaticImage: true,
-      error: "Failed to generate mission art",
-    })
+    return NextResponse.json({ error: "Failed to generate mission art" }, { status: 500 })
   }
 }

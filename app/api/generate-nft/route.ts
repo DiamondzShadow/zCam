@@ -2,29 +2,52 @@ import { type NextRequest, NextResponse } from "next/server"
 
 export async function POST(request: NextRequest) {
   try {
-    const { prompt, name } = await request.json()
+    const { character, rarity, traits } = await request.json()
 
-    // Call Fal AI API to generate an image
-    const response = await fetch("https://api.fal.ai/v1/text-to-image", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.FAL_KEY}`,
+    // Simulate NFT generation time
+    await new Promise((resolve) => setTimeout(resolve, 3000))
+
+    // Mock NFT generation
+    const rarityMultipliers = {
+      Common: 1,
+      Rare: 2,
+      Epic: 3,
+      Legendary: 5,
+      LIONSMANE: 10,
+    }
+
+    const baseStats = {
+      attack: Math.floor(Math.random() * 50) + 25,
+      defense: Math.floor(Math.random() * 50) + 25,
+      speed: Math.floor(Math.random() * 50) + 25,
+      intelligence: Math.floor(Math.random() * 50) + 25,
+    }
+
+    const multiplier = rarityMultipliers[rarity as keyof typeof rarityMultipliers] || 1
+
+    const nft = {
+      id: `NFT-${Date.now()}`,
+      name: `${character} ${rarity} Edition`,
+      character,
+      rarity,
+      traits: traits || [],
+      stats: {
+        attack: Math.min(100, baseStats.attack * multiplier),
+        defense: Math.min(100, baseStats.defense * multiplier),
+        speed: Math.min(100, baseStats.speed * multiplier),
+        intelligence: Math.min(100, baseStats.intelligence * multiplier),
       },
-      body: JSON.stringify({
-        model: "stable-diffusion-xl",
-        prompt: `Cyberpunk LIONSMANE NFT, digital art, ${prompt}`,
-        negative_prompt: "low quality, blurry, distorted",
-        width: 512,
-        height: 512,
-      }),
-    })
-
-    const data = await response.json()
+      image: `/characters/${character.toLowerCase().replace(" ", "-")}.png`,
+      description: `A ${rarity.toLowerCase()} NFT featuring ${character} with unique combat capabilities and special traits.`,
+      mintedAt: new Date().toISOString(),
+      blockchain: "Polygon",
+      tokenStandard: "ERC-721",
+    }
 
     return NextResponse.json({
-      imageUrl: data.images?.[0]?.url || null,
-      name,
+      success: true,
+      nft,
+      message: "NFT generated successfully",
     })
   } catch (error) {
     console.error("Error generating NFT:", error)
