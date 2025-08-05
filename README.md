@@ -1,30 +1,52 @@
-# CCTP Circle MulitiLiq
+# SCAM Mercenaires - The Digital Resistance
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
-
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/diamondz-shadow/v0-new-project-2h5bezuxrse)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/2H5beZUXRse)
+A cyberpunk interactive fiction game where you fight against the Limptin Foundation to protect digital freedom.
 
 ## Overview
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+SCAM Mercenaires is a text-based adventure game set in a dystopian cyberpunk future. Players take on missions to combat the evil Limptin Foundation, which seeks to control humanity through advanced technology and digital manipulation.
 
-## Deployment
+## Features
 
-Your project is live at:
+- **Interactive Mission Simulator**: Text-based adventures with branching narratives
+- **Character Progression**: Level up your character and unlock new abilities
+- **Rich Storyline**: Explore a detailed cyberpunk universe with multiple story arcs
+- **Dynamic Choices**: Your decisions affect the outcome of missions and story progression
+- **Cyberpunk Atmosphere**: Immersive dark theme with neon aesthetics
 
-**[https://vercel.com/diamondz-shadow/v0-new-project-2h5bezuxrse](https://vercel.com/diamondz-shadow/v0-new-project-2h5bezuxrse)**
+## Getting Started
 
-## Build your app
+1. Install dependencies:
+   ```bash
+   npm install --legacy-peer-deps
+   ```
 
-Continue building your app on:
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-**[https://v0.dev/chat/projects/2H5beZUXRse](https://v0.dev/chat/projects/2H5beZUXRse)**
+3. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## How It Works
+4. Click "Start Your Mission" to begin your adventure!
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## Game Sections
+
+- **Mission Simulator**: Experience interactive missions with choices that matter
+- **Characters**: Meet the heroes and villains of the resistance
+- **Storyline**: Explore the complete narrative arc
+- **Character Progression**: Develop your skills and abilities
+- **Future Timeline**: Discover what lies ahead in the year 3030
+
+## Technology Stack
+
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS
+- Radix UI
+- Framer Motion
+
+## Contributing
+
+This is a single-player narrative game. Feel free to modify the story, add new missions, or enhance the gameplay mechanics.
